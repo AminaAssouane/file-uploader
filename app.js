@@ -1,10 +1,17 @@
 const express = require("express");
-const app = express();
 const path = require("node:path");
 const fileRouter = require("./routes/fileRouter");
+const session = require("express-session");
+const passport = require("passport");
+require("./config/passport");
+
+const app = express();
 
 app.set("view", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
+app.use(passport.session());
 
 app.use("/", fileRouter);
 
