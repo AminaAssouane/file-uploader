@@ -33,7 +33,7 @@ async function signUpPost(req, res) {
   }
 }
 
-//LOGIN
+// LOGIN
 function loginGet(req, res) {
   res.render("login");
 }
@@ -57,6 +57,16 @@ function loginPost(req, res, next) {
     });
   })(req, res, next);
 }
+
+// UPLOAD
+function uploadGet(req, res) {
+  res.render("upload");
+}
+function uploadPost(req, res) {
+  console.log(req.file);
+  res.redirect("/");
+}
+
 /*
 function loginPost(req, res, next) {
   passport.authenticate("local", {
@@ -65,4 +75,12 @@ function loginPost(req, res, next) {
   })(req, res, next);
 }*/
 
-module.exports = { homepage, signUpGet, signUpPost, loginGet, loginPost };
+module.exports = {
+  homepage,
+  signUpGet,
+  signUpPost,
+  loginGet,
+  loginPost,
+  uploadGet,
+  uploadPost,
+};
