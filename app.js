@@ -10,7 +10,7 @@ require("dotenv").config();
 
 const app = express();
 
-app.set("view", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(
@@ -29,9 +29,7 @@ app.use(
 );
 app.use(passport.session());
 
-app.use("/", (req, res) => {
-  res.send(process.env.DATABASE_URL);
-});
+app.use("/", fileRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (error) => {
