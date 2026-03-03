@@ -8,9 +8,9 @@ function signUpGet(req, res) {
   res.render("signup");
 }
 async function signUpPost(req, res) {
-  const { name, email } = req.body;
+  const { name, email, password } = req.body;
   try {
-    const newUser = await prisma.createUser({ name, email });
+    const newUser = await prisma.createUser({ name, email, password });
     console.log("Created user:", newUser);
     res.redirect("/");
   } catch (error) {
