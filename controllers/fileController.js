@@ -1,4 +1,5 @@
 const prisma = require("../db/queries.js");
+const bcrypt = require("bcryptjs");
 
 function homepage(req, res) {
   res.render("index");
@@ -8,9 +9,19 @@ function signUpGet(req, res) {
   res.render("signup");
 }
 async function signUpPost(req, res) {
-  const { name, email, password } = req.body;
+  const { name, email, password, confirmPassword } = req.body;
   try {
-    const newUser = await prisma.createUser({ name, email, password });
+    if (password !== confirmPassword) {
+      return res.status(400).send("Passwords do not match");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await prisma.createUser({
+      name,
+      email,
+      password: hashedPassword,
+    });
     console.log("Created user:", newUser);
     res.redirect("/");
   } catch (error) {
