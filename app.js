@@ -4,8 +4,9 @@ const fileRouter = require("./routes/fileRouter");
 const session = require("express-session");
 const passport = require("passport");
 require("./config/passport");
-const prisma = require("./db/prismaClient");
+const prisma = require("./db/prisma.js");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+require("dotenv").config();
 
 const app = express();
 
@@ -28,7 +29,9 @@ app.use(
 );
 app.use(passport.session());
 
-app.use("/", fileRouter);
+app.use("/", (req, res) => {
+  res.send(process.env.DATABASE_URL);
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (error) => {
