@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("node:path");
 const fileRouter = require("./routes/fileRouter");
 const session = require("express-session");
-const passport = require("passport");
+const passport = require("./config/passport");
 require("./config/passport");
 const prisma = require("./db/prisma.js");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
@@ -30,6 +30,7 @@ app.use(
     saveUninitialized: false,
   }),
 );
+app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", fileRouter);

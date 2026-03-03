@@ -1,10 +1,13 @@
 const prisma = require("../db/queries.js");
 const bcrypt = require("bcryptjs");
+const passport = require("../config/passport");
 
+// HOME
 function homepage(req, res) {
   res.render("index");
 }
 
+// SIGN UP
 function signUpGet(req, res) {
   res.render("signup");
 }
@@ -30,8 +33,36 @@ async function signUpPost(req, res) {
   }
 }
 
+//LOGIN
 function loginGet(req, res) {
   res.render("login");
 }
+function loginPost(req, res, next) {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      console.error(err);
+      return next(err);
+    }
+    if (!user) {
+      console.log("Login failed:", info.message);
+      return res.redirect("/login");
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        console.error(err);
+        return next(err);
+      }
+      console.log("Login successful for:", user.email);
+      return res.redirect("/");
+    });
+  })(req, res, next);
+}
+/*
+function loginPost(req, res, next) {
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  })(req, res, next);
+}*/
 
-module.exports = { homepage, signUpGet, loginGet, signUpPost };
+module.exports = { homepage, signUpGet, signUpPost, loginGet, loginPost };

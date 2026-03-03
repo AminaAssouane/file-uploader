@@ -7,7 +7,14 @@
   </head>
   <body>
     <form action="/login" method="POST">
-      <fieldset><legend>Login</legend></fieldset>
+      <fieldset>
+        <legend>Login</legend>
+        <label for="email">Email : </label>
+        <input type="text" name="email" id="email" />
+        <label for="password">Password : </label>
+        <input type="password" name="password" id="password" />
+        <button type="submit">Login</button>
+      </fieldset>
     </form>
   </body>
 </html>

@@ -8,6 +8,6 @@ fileRouter.get("/signup", fileController.signUpGet);
 fileRouter.post("/signup", fileController.signUpPost);
 
 fileRouter.get("/login", fileController.loginGet);
-// fileRouter.get("/login", fileController.loginPost);
+fileRouter.post("/login", fileController.loginPost);
 
 module.exports = fileRouter;
