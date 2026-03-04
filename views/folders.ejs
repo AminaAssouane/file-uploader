@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Folders</title>
+  </head>
+  <body>
+    <h2>Folders : </h2>
+    <ul>
+      <% folders.forEach((folder) => { %>
+        <li><%= folder.name %></li>
+      <%})%>
+    </ul>
+    <h2>New folder : </h2>
+    <form action="/folders" method="POST">
+      <fieldset>
+        <legend>New folder</legend>
+        <label for="name">Name : </label>
+        <input type="text" name="name" id="name" required>
+        <button type="submit">New folder</button>
+      </fieldset>
+    </form>
+  </body>
+</html>
