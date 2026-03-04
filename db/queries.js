@@ -66,6 +66,18 @@ async function getFileById(id, userId) {
   });
 }
 
+async function createFile({ name, path, size, userId, folderId }) {
+  return await prisma.file.create({
+    data: {
+      name,
+      path,
+      size,
+      userId,
+      folderId: folderId || null,
+    },
+  });
+}
+
 module.exports = {
   createUser,
   listFolders,
@@ -76,4 +88,5 @@ module.exports = {
   listFilesByUser,
   listFilesByFolder,
   getFileById,
+  createFile,
 };
