@@ -12,7 +12,16 @@
     <% } else { %>
     <ul>
       <% folders.forEach((folder) => { %>
-        <li><%= folder.name %></li>
+        <li>
+          <%= folder.name %>
+          <form action="/folders/<%= folder.id %>?_method=PUT" method="POST">
+            <input type="text" name="name" value="<%= folder.name %>" required />
+            <button type="submit">Rename</button>
+          </form>          
+          <form action="/folders/<%= folder.id %>?_method=DELETE" method="POST">
+            <button>Delete</button>
+          </form>        
+        </li>
       <%})%>
     </ul>
     <% } %>
