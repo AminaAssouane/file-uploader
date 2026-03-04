@@ -10,5 +10,6 @@
     <div>Name : <%= file.name %></div>
     <div>Size : <%= (file.size / 1024).toFixed(2) %> KB</div>
     <div>Upload time : <%= new Date(file.createdAt).toLocaleString() %></div>
+    <a href="/files/<%= file.id %>/download"><button>Download</button></a>
   </body>
 </html>

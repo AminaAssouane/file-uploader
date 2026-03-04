@@ -10,5 +10,6 @@ filesRouter.get(
   filesController.listFilesByFolder,
 );
 filesRouter.get("/files/:id", ensureAuthenticated, filesController.getFileById);
+filesRouter.get("/files/:id/download", filesController.downloadFile);
 
 module.exports = filesRouter;

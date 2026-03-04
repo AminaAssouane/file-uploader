@@ -1,4 +1,6 @@
 const db = require("../db/queries");
+const path = require("path");
+const fs = require("fs");
 
 async function listFilesByUser(req, res) {
   try {
@@ -38,4 +40,32 @@ async function getFileById(req, res) {
   }
 }
 
-module.exports = { listFilesByUser, listFilesByFolder, getFileById };
+async function downloadFile(req, res) {
+  try {
+    const fileId = req.params.id;
+    const userId = req.user.id;
+
+    const file = await db.getFileById(fileId, userId);
+
+    if (!file) {
+      return res.status(404).send("File not found");
+    }
+
+    const filePath = path.resolve(file.path); // absolute path
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).send("File missing on server");
+    }
+
+    res.download(filePath, file.name); // sends the file to the client
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Could not download file");
+  }
+}
+
+module.exports = {
+  listFilesByUser,
+  listFilesByFolder,
+  getFileById,
+  downloadFile,
+};
