@@ -1,4 +1,4 @@
-const prisma = require("../db/queries.js");
+const db = require("../db/queries.js");
 const bcrypt = require("bcryptjs");
 const passport = require("../config/passport.js");
 
@@ -20,7 +20,7 @@ async function signUpPost(req, res) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = await prisma.createUser({
+    const newUser = await db.createUser({
       name,
       email,
       password: hashedPassword,

@@ -7,11 +7,15 @@
   </head>
   <body>
     <h2>Folders : </h2>
+    <% if (folders.length === 0) { %>
+      <p>No folders yet.</p>
+    <% } else { %>
     <ul>
       <% folders.forEach((folder) => { %>
         <li><%= folder.name %></li>
       <%})%>
     </ul>
+    <% } %>
     <h2>New folder : </h2>
     <form action="/folders" method="POST">
       <fieldset>

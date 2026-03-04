@@ -1,10 +1,9 @@
-const prisma = require("../db/queries.js");
+const db = require("../db/queries.js");
 
 async function listFolders(req, res) {
   try {
-    const folders = await prisma.folder.findMany({
-      where: { userId: req.user.id },
-    });
+    const userId = req.user.id;
+    const folders = await db.listFolders(userId);
     res.render("folders", { folders });
   } catch (error) {
     console.error(error);
@@ -15,12 +14,8 @@ async function listFolders(req, res) {
 async function createFolder(req, res) {
   try {
     const { name } = req.body;
-    await prisma.folder.create({
-      data: {
-        name,
-        userId: req.user.id,
-      },
-    });
+    const userId = req.user.id;
+    await db.createFolder(name, userId);
     res.redirect("/folders");
   } catch (error) {
     console.error(error);
@@ -31,19 +26,16 @@ async function createFolder(req, res) {
 async function renameFolder(req, res) {
   try {
     // Fetching folder to check ownership
-    const folder = await prisma.folder.findUnique({
-      where: { id: Number(req.params.id) },
-    });
+    const id = Number(req.params.id);
+    const folder = await db.findFolder(id);
 
     if (!folder || folder.userId !== req.user.id) {
       return res.status(403).send("Not authorized to rename this folder");
     }
 
     // Updating folder name
-    await prisma.folder.update({
-      where: { id: Number(req.params.id) },
-      data: { name: req.body.name },
-    });
+    const name = req.body.name;
+    await db.renameFolder(id, name);
     res.redirect("/folders");
   } catch (error) {
     console.error(error);
@@ -54,18 +46,15 @@ async function renameFolder(req, res) {
 async function deleteFolder(req, res) {
   try {
     // First, making sure the folder belongs to the logged-in user
-    const folder = await prisma.folder.findUnique({
-      where: { id: Number(req.params.id) },
-    });
+    const id = Number(req.params.id);
+    const folder = await db.findFolder(id);
 
     if (!folder || folder.userId !== req.user.id) {
       return res.status(403).send("Not authorized to delete this folder");
     }
 
-    // Them, deleting
-    await prisma.folder.delete({
-      where: { id: Number(req.params.id) },
-    });
+    // Then, deleting
+    await db.deleteFolder(id);
     res.redirect("/folders");
   } catch (error) {
     console.error(error);
