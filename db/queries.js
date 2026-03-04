@@ -1,11 +1,13 @@
 const prisma = require("./prisma");
 
+// AUTH
 async function createUser({ name, email, password }) {
   return prisma.user.create({
     data: { name, email, password },
   });
 }
 
+// FOLDERS
 async function listFolders(userId) {
   return await prisma.folder.findMany({
     where: { userId },
@@ -40,6 +42,30 @@ async function deleteFolder(id) {
   });
 }
 
+// FILES
+async function listFilesByUser(userId) {
+  return await prisma.file.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+  });
+}
+
+async function listFilesByFolder(folderId, userId) {
+  return await prisma.file.findMany({
+    where: { folderId, userId },
+    orderBy: { createdAt: "desc" },
+  });
+}
+
+async function getFileById(id, userId) {
+  return await prisma.file.findFirst({
+    where: {
+      id,
+      userId,
+    },
+  });
+}
+
 module.exports = {
   createUser,
   listFolders,
@@ -47,4 +73,7 @@ module.exports = {
   findFolder,
   renameFolder,
   deleteFolder,
+  listFilesByUser,
+  listFilesByFolder,
+  getFileById,
 };
