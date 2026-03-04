@@ -64,8 +64,15 @@ async function downloadFile(req, res) {
 }
 
 // UPLOAD
-function uploadGet(req, res) {
-  res.render("upload");
+async function uploadGet(req, res) {
+  try {
+    const userId = req.user.id;
+    const folders = await db.listFolders(userId);
+    res.render("upload", { folders });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Could not load upload page");
+  }
 }
 async function uploadPost(req, res) {
   try {
