@@ -67,13 +67,15 @@ function uploadPost(req, res) {
   res.redirect("/");
 }
 
-/*
-function loginPost(req, res, next) {
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-  })(req, res, next);
-}*/
+// LOGOUT
+function logout(req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+}
 
 module.exports = {
   homepage,
@@ -83,4 +85,5 @@ module.exports = {
   loginPost,
   uploadGet,
   uploadPost,
+  logout,
 };

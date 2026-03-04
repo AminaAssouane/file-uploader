@@ -20,4 +20,6 @@ fileRouter.post(
   fileController.uploadPost,
 );
 
+fileRouter.get("/logout", fileController.logout);
+
 module.exports = fileRouter;
