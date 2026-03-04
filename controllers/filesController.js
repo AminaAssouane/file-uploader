@@ -39,7 +39,7 @@ async function getFileById(req, res) {
     res.status(500).send("Could not fetch file");
   }
 }
-
+// DOWNLOAD
 async function downloadFile(req, res) {
   try {
     const fileId = req.params.id;
@@ -63,9 +63,39 @@ async function downloadFile(req, res) {
   }
 }
 
+// UPLOAD
+function uploadGet(req, res) {
+  res.render("upload");
+}
+async function uploadPost(req, res) {
+  try {
+    const userId = req.user.id;
+    const folderId = req.body.folderId || null;
+
+    // req.file contains file info
+    console.log(req.file);
+
+    // Save file metadata in DB
+    await db.createFile({
+      name: req.file.originalname,
+      path: req.file.path,
+      size: req.file.size,
+      userId,
+      folderId,
+    });
+
+    res.redirect("/files");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error uploading file");
+  }
+}
+
 module.exports = {
   listFilesByUser,
   listFilesByFolder,
   getFileById,
   downloadFile,
+  uploadGet,
+  uploadPost,
 };
