@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Files</title>
+  </head>
+  <body>
+    <h2>Files :</h2>
+    
+    <% if (files.length === 0) { %>
+        <p>No files yet.</p>
+    <% } else { %>
+    <ul>
+        <% files.forEach((file) => {%>
+            <li>
+                <a href="/files/<%= file.id %>"><%= file.name %></a>
+            </li>
+        <%})%>
+    </ul>
+    <% } %>
+  </body>
+</html>

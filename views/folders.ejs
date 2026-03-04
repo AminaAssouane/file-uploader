@@ -13,7 +13,7 @@
     <ul>
       <% folders.forEach((folder) => { %>
         <li>
-          <%= folder.name %>
+          <a href="/folders/<%= folder.id %>/files"><%= folder.name %></a>
           <form action="/folders/<%= folder.id %>?_method=PUT" method="POST">
             <input type="text" name="name" value="<%= folder.name %>" required />
             <button type="submit">Rename</button>
