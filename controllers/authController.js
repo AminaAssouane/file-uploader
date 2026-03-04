@@ -1,6 +1,6 @@
 const prisma = require("../db/queries.js");
 const bcrypt = require("bcryptjs");
-const passport = require("../config/passport");
+const passport = require("../config/passport.js");
 
 // HOME
 function homepage(req, res) {

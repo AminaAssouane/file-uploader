@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("node:path");
-const fileRouter = require("./routes/fileRouter");
+const authRouter = require("./routes/authRouter");
 const session = require("express-session");
 const passport = require("./config/passport");
 require("./config/passport");
@@ -33,7 +33,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", fileRouter);
+app.use("/", authRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (error) => {
