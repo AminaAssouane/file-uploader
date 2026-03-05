@@ -59,15 +59,6 @@ function loginPost(req, res, next) {
   })(req, res, next);
 }
 
-// UPLOAD
-function uploadGet(req, res) {
-  res.render("upload");
-}
-function uploadPost(req, res) {
-  console.log(req.file);
-  res.redirect("/");
-}
-
 // LOGOUT
 function logout(req, res, next) {
   req.logout(function (err) {
@@ -84,7 +75,5 @@ module.exports = {
   signUpPost,
   loginGet,
   loginPost,
-  uploadGet,
-  uploadPost,
   logout,
 };

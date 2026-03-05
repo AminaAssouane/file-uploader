@@ -18,7 +18,7 @@ filesRouter.get("/upload", ensureAuthenticated, filesController.uploadGet);
 filesRouter.post(
   "/upload",
   ensureAuthenticated,
-  upload.single("file"), // name must match <input name="file">
+  upload.single("file"),
   filesController.uploadPost,
 );
 

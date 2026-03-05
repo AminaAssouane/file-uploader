@@ -12,14 +12,6 @@ authRouter.post("/signup", authController.signUpPost);
 authRouter.get("/login", authController.loginGet);
 authRouter.post("/login", authController.loginPost);
 
-authRouter.get("/upload", ensureAuthenticated, authController.uploadGet);
-authRouter.post(
-  "/upload",
-  ensureAuthenticated,
-  upload.single("file"),
-  authController.uploadPost,
-);
-
 authRouter.get("/logout", authController.logout);
 
 module.exports = authRouter;

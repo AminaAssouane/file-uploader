@@ -72,8 +72,10 @@ async function createFile({ name, path, size, userId, folderId }) {
       name,
       path,
       size,
-      userId,
-      folderId: folderId || null,
+      user: {
+        connect: { id: userId },
+      },
+      folder: folderId ? { connect: { id: folderId } } : undefined,
     },
   });
 }

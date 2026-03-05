@@ -28,7 +28,7 @@ async function listFilesByFolder(req, res) {
 async function getFileById(req, res) {
   try {
     const fileId = Number(req.params.id);
-    const userId = req.user.id;
+    const userId = Number(req.user.id);
     const file = await db.getFileById(fileId, userId);
     if (!file) {
       return res.status(404).send("File not found or not authorized");
@@ -42,8 +42,8 @@ async function getFileById(req, res) {
 // DOWNLOAD
 async function downloadFile(req, res) {
   try {
-    const fileId = req.params.id;
-    const userId = req.user.id;
+    const fileId = Number(req.params.id);
+    const userId = Number(req.user.id);
 
     const file = await db.getFileById(fileId, userId);
 
@@ -76,8 +76,8 @@ async function uploadGet(req, res) {
 }
 async function uploadPost(req, res) {
   try {
-    const userId = req.user.id;
-    const folderId = req.body.folderId || null;
+    const userId = Number(req.user.id);
+    const folderId = req.body.folderId ? Number(req.body.folderId) : null;
 
     // req.file contains file info
     console.log(req.file);
