@@ -9,6 +9,7 @@ const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const methodOverride = require("method-override");
 const authRouter = require("./routes/authRouter");
 const foldersRouter = require("./routes/foldersRouter");
+const filesRouter = require("./routes/filesRouter");
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use(methodOverride("_method"));
 
 app.use("/", authRouter);
 app.use("/", foldersRouter);
+app.use("/", filesRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (error) => {
