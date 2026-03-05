@@ -7,12 +7,12 @@
   </head>
   <body>
     <h2>Home</h2>
-    <% if (!name) { %>
+    <% if (!user) { %>
       <div>No one is logged in.</div> 
       <a href="/signup"><button>Sign up</button></a>
       <a href="/login"><button>Login</button></a>
     <% } else {  %>
-      <div>User : <%= name %></div>     
+      <div>User : <%= user.name %></div>     
       <a href="/logout"><button>Logout</button></a>
       <a href="/folders"><button>Folders</button></a>
     <% } %>

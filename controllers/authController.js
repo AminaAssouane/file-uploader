@@ -4,8 +4,8 @@ const passport = require("../config/passport.js");
 
 // HOME
 function homepage(req, res) {
-  const name = req.user.name;
-  res.render("index", { name });
+  const user = req.user;
+  res.render("index", { user });
 }
 
 // SIGN UP
