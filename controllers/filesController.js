@@ -51,12 +51,9 @@ async function downloadFile(req, res) {
       return res.status(404).send("File not found");
     }
 
-    const filePath = path.resolve(file.path); // absolute path
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).send("File missing on server");
-    }
-
-    res.download(filePath, file.name); // sends the file to the client
+    // Redirect user to the Cloudinary URL with a forced download
+    res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`);
+    res.redirect(file.path); // file.path is now the Cloudinary URL
   } catch (error) {
     console.error(error);
     res.status(500).send("Could not download file");
