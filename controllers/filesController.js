@@ -73,6 +73,12 @@ async function uploadGet(req, res) {
 }
 async function uploadPost(req, res) {
   try {
+    if (!req.file) {
+      return res
+        .status(400)
+        .send("File is required and must be a valid type/size");
+    }
+
     const userId = Number(req.user.id);
     const folderId = req.body.folderId ? Number(req.body.folderId) : null;
 
