@@ -3,6 +3,7 @@ const filesController = require("../controllers/filesController");
 const filesRouter = Router();
 const ensureAuthenticated = require("../middleware/authMiddleware");
 const upload = require("../config/multer");
+const parser = require("../middleware/cloudinaryMulter");
 
 filesRouter.get("/files", ensureAuthenticated, filesController.listFilesByUser);
 filesRouter.get(
@@ -18,7 +19,7 @@ filesRouter.get("/upload", ensureAuthenticated, filesController.uploadGet);
 filesRouter.post(
   "/upload",
   ensureAuthenticated,
-  upload.single("file"),
+  parser.single("file"),
   filesController.uploadPost,
 );
 
